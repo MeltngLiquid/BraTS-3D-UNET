@@ -1,27 +1,7 @@
-# https://youtu.be/ScdCQqLtnis
-"""
-@author: Sreenivas Bhattiprolu
-
-Code to train batches of cropped BraTS 2020 images using 3D U-net.
-
-Please get the data ready and define custom data gnerator using the other
-files in this directory.
-
-Images are expected to be 128x128x128x3 npy data (3 corresponds to the 3 channels for 
-                                                  test_image_flair, test_image_t1ce, test_image_t2)
-Change the U-net input shape based on your input dataset shape (e.g. if you decide to only se 2 channels or all 4 channels)
-
-Masks are expected to be 128x128x128x3 npy data (4 corresponds to the 4 classes / labels)
-
-
-You can change input image sizes to customize for your computing resources.
-"""
-
 
 import os
 import numpy as np
 from custom_datagen import imageLoader
-#import tensorflow as tf
 import keras
 from matplotlib import pyplot as plt
 import glob
@@ -215,12 +195,7 @@ plt.show()
 #################################################
 from keras.models import load_model
 
-#Load model for prediction or continue training
 
-#For continuing training....
-#The following gives an error: Unknown loss function: dice_loss_plus_1focal_loss
-#This is because the model does not save loss function and metrics. So to compile and 
-#continue training we need to provide these as custom_objects.
 my_model = load_model('saved_models/brats_3d_100epochs_simple_unet_weighted_dice.hdf5')
 
 #So let us add the loss as custom object... but the following throws another error...
@@ -284,11 +259,6 @@ test_prediction = my_model.predict(test_img_input)
 test_prediction_argmax=np.argmax(test_prediction, axis=4)[0,:,:,:]
 
 
-# print(test_prediction_argmax.shape)
-# print(test_mask_argmax.shape)
-# print(np.unique(test_prediction_argmax))
-
-
 #Plot individual slices from test predictions for verification
 from matplotlib import pyplot as plt
 import random
@@ -308,4 +278,5 @@ plt.imshow(test_prediction_argmax[:,:, n_slice])
 plt.show()
 
 ############################################################
+
 
