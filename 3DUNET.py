@@ -1,17 +1,11 @@
-# https://youtu.be/ScdCQqLtnis
-"""
-@author: Sreenivas Bhattiprolu
 
-Converted my standard 2D Unet to 3D. 
-
-"""
 
 from keras.models import Model
 from keras.layers import Input, Conv3D, MaxPooling3D, concatenate, Conv3DTranspose, BatchNormalization, Dropout, Lambda
 from keras.optimizers import Adam
 from keras.metrics import MeanIoU
 
-kernel_initializer =  'he_uniform' #Try others if you want
+kernel_initializer =  'he_uniform' 
 
 
 ################################################################
@@ -83,3 +77,4 @@ def simple_unet_model(IMG_HEIGHT, IMG_WIDTH, IMG_DEPTH, IMG_CHANNELS, num_classe
 model = simple_unet_model(128, 128, 128, 3, 4)
 print(model.input_shape)
 print(model.output_shape)
+
